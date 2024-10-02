@@ -97,7 +97,11 @@ WHERE title NOT ILIKE '%analyst%' AND title NOT ILIKE '%analytics%';
 
 --BONUS: You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks.
 
-SELECT COUNT(title), days_since_posting/7 AS weeks_since_posting, domain
-FROM data_analyst_jobs
-WHERE days_since_posting >3 AND title IS NOT NULL
-GROUP BY weeks_since_posting;
+
+SELECT COUNT(d.title), d.domain
+FROM data_analyst_jobs AS d
+WHERE d.days_since_posting >21 AND d.title IS NOT NULL AND d.domain IS NOT NULL
+GROUP BY d.domain
+ORDER BY COUNT(d.title) DESC;
+
+--Answer: Consulting and Business Services has 110 jobs listed for over 3 weeks, Health Care has 96 jobs listed for over 3 weeks, and Internet and Software has 84 jobs listed for over 3 weeks.
