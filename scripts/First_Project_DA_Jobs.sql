@@ -42,8 +42,9 @@ WHERE review_count BETWEEN 500 AND 1000;
 SELECT location, AVG(star_rating) AS avg_rating
 FROM data_analyst_jobs
 GROUP BY location
+ORDER BY avg_rating DESC
 
---Answer: KS
+--Answer: NE
 
 --7. Select unique job titles from the data_analyst_jobs table. How many are there?
 
@@ -67,7 +68,7 @@ FROM data_analyst_jobs
 WHERE review_count >5000
 GROUP BY company;
 
--- Answer: Returns 41, though the first company listed is null.
+-- Answer: Returns 40 company names.
 
 --10. Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating? 
 
@@ -81,11 +82,11 @@ ORDER BY star_rating DESC;
 
 --11. Find all the job titles that contain the word ‘Analyst’. How many different job titles are there?
 
-SELECT COUNT(title)
+SELECT COUNT(DISTINCT title)
 FROM data_analyst_jobs
 WHERE title ILIKE '%analyst%';
 
---Answer: 1669
+--Answer: 774
 
 --12. How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
 
@@ -100,8 +101,11 @@ WHERE title NOT ILIKE '%analyst%' AND title NOT ILIKE '%analytics%';
 
 SELECT COUNT(d.title), d.domain
 FROM data_analyst_jobs AS d
-WHERE d.days_since_posting >21 AND d.title IS NOT NULL AND d.domain IS NOT NULL
+WHERE d.days_since_posting >21 
+	AND d.title IS NOT NULL 
+	AND d.domain IS NOT NULL
+	AND skill ILIKE '%SQL%'
 GROUP BY d.domain
 ORDER BY COUNT(d.title) DESC;
 
---Answer: Consulting and Business Services has 110 jobs listed for over 3 weeks, Health Care has 96 jobs listed for over 3 weeks, and Internet and Software has 84 jobs listed for over 3 weeks.
+--Answer: Internet and Software has 62 jobs listed for over 3 weeks, Banks and Financial Servies have 61 listed for over 3 weeks, and Consulting and Business Services has 57 jobs listed for over 3 weeks.
