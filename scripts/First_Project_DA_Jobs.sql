@@ -1,6 +1,6 @@
 -- 1. How many rows are in the data_analyst_jobs table?
 
-SELECT COUNT (*)
+SELECT COUNT(*)
 FROM data_analyst_jobs;
 
 --Answer: 1793
@@ -17,13 +17,17 @@ LIMIT 10;
 
 SELECT COUNT(location)
 FROM data_analyst_jobs
+WHERE location = 'TN'
+
+SELECT COUNT(location)
+FROM data_analyst_jobs
 WHERE location = 'TN' OR location = 'KY'
 
 --Answer: TN = 21, TN or KY = 27
 
 --4. How many postings in Tennessee have a star rating above 4?
 
-SELECT COUNT(location)
+SELECT *
 FROM data_analyst_jobs
 WHERE location = 'TN' AND star_rating >4;
 
@@ -41,6 +45,7 @@ WHERE review_count BETWEEN 500 AND 1000;
 
 SELECT location, AVG(star_rating) AS avg_rating
 FROM data_analyst_jobs
+WHERE star_rating IS NOT NULL
 GROUP BY location
 ORDER BY avg_rating DESC
 
@@ -108,4 +113,5 @@ WHERE d.days_since_posting >21
 GROUP BY d.domain
 ORDER BY COUNT(d.title) DESC;
 
---Answer: Internet and Software has 62 jobs listed for over 3 weeks, Banks and Financial Servies have 61 listed for over 3 weeks, and Consulting and Business Services has 57 jobs listed for over 3 weeks.
+
+--Answer: Internet and Software has 62 jobs listed for over 3 weeks, Banks and Financial Services have 61 listed for over 3 weeks, and Consulting and Business Services has 57 jobs listed for over 3 weeks.
